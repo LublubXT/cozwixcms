@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/webstyles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Missionary Website</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div>
+                <!-- <img src="imgs/icon.svg" alt="" class="navbar-icon logo-hide"> -->
+                <h1 class="navbar-title">Title</h1>
+            </div>
+            <div class="navbar-inner" id="drop">
+                <a href="#" class="navbar-link">Home</a>
+                <a href="#" class="navbar-link">About</a>
+                <a href="#" class="navbar-link">Prayer
+                        Letters</a>
+                <a href="#" class="navbar-link">Contact</a>
+                <!-- <a href="#" class="navbar-link-button color-first bg-third text-decoration-none font-text font-weight-100 font-size-xlarge border-rad-small padding-small padding-left-large padding-right-large margin-left-medium sm-margin-left-none sm-margin-top-medium"></a> -->
+
+            </div>
+            <a href="javascript:void(0);" style="height: fit-content;" class="icon flex-row-center-y flex-row-start-x margin-right-medium" onclick="onMenuClick()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </div>
+    <img src="uploads/resized/<%= data.headerImage %>" alt="" class="header-img edit">
+    <div class="container">
+        <div id="postarea">
+            <h1 class="" style="text-align: center; margin-bottom: -10px; margin-top: 120px;">
+                <%= data.postTitle %>
+            </h1>
+            <p class="caption" style="text-align: center; margin-bottom: 45px;">
+                <%= data.author%> |
+                    <%= data.dateposted%>
+            </p>
+        </div>
+        <h1 style="text-align: center; margin-bottom: 60px; margin-top: 120px;">Other Posts</h1>
+        <div class="bottom-post-list">
+            <div class="post-item">
+                <img src="imgs/post1.png" alt="" class="post-item-img">
+                <div style="width: calc(100% - 20px); padding: 0px 10px 10px 10px;">
+                    <h1 style="font-size: 25px; margin-bottom: -10px;">Post Title Here</h1>
+                    <p style="font-size: 15px; width: 99%;">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqua dolor
+                        do...
+                    </p>
+                    <p class="caption" style="text-align: left;">Wade Warren | 11/11/1111</p>
+                </div>
+            </div>
+            <div class="post-item">
+                <img src="imgs/post2.png" alt="" class="post-item-img">
+                <div style="width: calc(100% - 20px); padding: 0px 10px 10px 10px;">
+                    <h1 style="font-size: 25px; margin-bottom: -10px;">Post Title Here</h1>
+                    <p style="font-size: 15px; width: 99%;">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqua dolor
+                        do...
+                    </p>
+                    <p class="caption" style="text-align: left;">Wade Warren | 11/11/1111</p>
+                </div>
+            </div>
+            <div class="post-item">
+                <img src="imgs/post3.png" alt="" class="post-item-img">
+                <div style="width: calc(100% - 20px); padding: 0px 10px 10px 10px;">
+                    <h1 style="font-size: 25px; margin-bottom: -10px;">Post Title Here</h1>
+                    <p style="font-size: 15px; width: 99%;">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqua dolor
+                        do...
+                    </p>
+                    <p class="caption" style="text-align: left;">Wade Warren | 11/11/1111</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+
+            <div>
+                <!-- <img src="imgs/icon.svg" alt="" class="navbar-icon logo-hide"> -->
+                <h1 class="footer-title">Title</h1>
+            </div>
+            <div class="footer-inner">
+                <a href="#" class="navbar-link">Home</a>
+                <a href="#" class="navbar-link">About</a>
+                <a href="#" class="navbar-link">Prayer
+                        Letters</a>
+                <a href="#" class="navbar-link">Contact</a>
+                <!-- <a href="#" class="navbar-link-button color-first bg-third text-decoration-none font-text font-weight-100 font-size-xlarge border-rad-small padding-small padding-left-large padding-right-large margin-left-medium sm-margin-left-none sm-margin-top-medium"></a> -->
+
+            </div>
+
+        </div>
+    </div>
+    <script>
+        function onMenuClick() {
+            var navbar = document.getElementById('drop');
+            var responsive_class_name = 'responsive'
+            navbar.classList.toggle(responsive_class_name)
+        }
+
+        var editor = document.getElementById('postarea')
+
+        var d = '<%- json %>'
+        d = JSON.parse(d)
+        console.log(d)
+
+        d = d.data
+
+        console.log(d)
+
+
+        for (var i = 0; i < d.length; i++) {
+            addBlock1(d[i].type, d[i].data, d[i].caption, d[i].align, d[i].tab)
+            console.log(d[i].type, d[i].data)
+        }
+
+        function addBlock1(item, data, caption, align, tab) {
+            if (item == 'heading1') {
+                editor.innerHTML += `
+      <h1 class="${align}" style="">${data}</h1>`
+
+            } else if (item == 'heading2') {
+                editor.innerHTML += `
+      <h2 class="${align}" style="">${data}</h2>`
+
+            } else if (item == 'heading3') {
+                editor.innerHTML += `
+      <h3 class="${align}" style="">${data}</h3>`
+
+            } else if (item == 'heading4') {
+                editor.innerHTML += `
+      <h4 class="${align}" style="">${data}</h4>`
+
+            } else if (item == 'paragraph') {
+                editor.innerHTML += `
+      <p class="${align} tab-${tab}">${data}</p>`
+
+            } else if (item == 'image') {
+                console.log(data)
+
+                editor.innerHTML += `
+        <img src="uploads/resized/${data}" alt="" class="blog-img"></img>
+        <p class="caption" style="text-align: left; margin-bottom: 45px; margin-top: 0px;">${caption}</p>`
+
+
+            }
+        }
+    </script>
+</body>
+
+</html>

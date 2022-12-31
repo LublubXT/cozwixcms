@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Admin</title>
+</head>
+
+<body>
+    <div class="body">
+        <div class="sidebar">
+            <img src="imgs/ccms-logo.svg" alt="logo" class="sidebar-logo">
+            <div class="sidebar-link-container">
+                <div style="height: fit-content; display: flex; flex-direction: column; align-items: flex-start; align-content: flex-start; width: 80px; margin-left: 15px; overflow-x: hidden;">
+                    <a href="/admin/home" class="sidebar-link">- Home</a>
+                    <a href="/admin/posts" class="sidebar-link">- Posts</a>
+                    <a href="#" class="sidebar-link">- Pages</a>
+                    <a href="#" class="sidebar-link">- Website</a>
+                </div>
+                <div style="height: fit-content; display: flex; flex-direction: column; align-items: flex-start; align-content: flex-start; width: 80px; margin-left: 15px; overflow-x: hidden;">
+                    <a href="#" class="sidebar-link">- Setting</a>
+                    <a href="#" class="sidebar-link-logout">- Logout</a>
+                </div>
+            </div>
+        </div>
+        <div class="mainarea" style="align-items: flex-start; align-content: flex-start;overflow-y: auto;">
+            <form action="/admin/savepostdetails" method="POST" enctype="multipart/form-data">
+                <div style="width: 900px; height: auto; padding: 20px 50px;">
+                    <div style="width: 90%; display: block; margin: 20px auto;">
+                        <p class="caption" style="margin-bottom: 4px;">Post Image</p>
+                        <div style="width: calc(100% - 80px); margin: auto; border: 1px solid transparent; background-color: white; border-radius: 5px; padding: 40px;">
+                            <img id="headerimage" src="imgs/background-icon.svg" alt="your image" style="width: 50%; margin: auto; display: block; margin-bottom: 30px;" />
+                            <input type="file" id="headerimageinput" onchange="headerImage('headerimage')" name="image" />
+                        </div>
+                    </div>
+                    <div style="width: 90%; margin: 20px auto;">
+                        <p class="caption" style="margin-bottom: 4px;">Post Title</p>
+                        <div style="width: calc(100% - 80px); margin: auto; border: 1px solid transparent; background-color: white; border-radius: 5px; padding: 40px;">
+                            <h1 id="postTitle">Heading Text</h1>
+                            <input type="text" name="posttitle" class="item-input" id="postTitleinput" onkeyup="document.getElementById('postTitle').innerText = document.getElementById('postTitleinput').value;" placeholder="Heading Text...">
+                        </div>
+                    </div>
+                    <div style="width: 90%; margin: 20px auto;">
+                        <p class="caption" style="margin-bottom: 4px;">Post Sub Text</p>
+                        <div style="width: calc(100% - 80px); margin: auto; border: 1px solid transparent; background-color: white; border-radius: 5px; padding: 40px;">
+                            <p id="postsubtext">Post Sub Text</p>
+                            <input type="text" name="postsubtext" class="item-input" id="postsubtextinput" onkeyup="document.getElementById('postsubtext').innerText = document.getElementById('postsubtextinput').value;" placeholder="Post Sub Text...">
+                        </div>
+                    </div>
+                    <div style="width: 90%; margin: 20px auto;">
+                        <p class="caption" style="margin-bottom: 4px;">Post Author</p>
+                        <div style="width: calc(100% - 80px); margin: auto; border: 1px solid transparent; background-color: white; border-radius: 5px; padding: 40px;">
+                            <p id="postauthor">Post Author</p>
+                            <input type="text" name="postauthor" class="item-input" id="postauthorinput" onkeyup="document.getElementById('postauthor').innerText = document.getElementById('postauthorinput').value;" placeholder="Post Author...">
+                        </div>
+                    </div>
+                    <div style="width: 90%; margin: 20px auto;">
+                        <p class="caption" style="margin-bottom: 4px;">Post Category</p>
+                        <div style="width: calc(100% - 80px); margin: auto; border: 1px solid transparent; background-color: white; border-radius: 5px; padding: 40px;">
+                            <p id="postcategory">Post Category</p>
+                            <input type="text" name="postcategory" class="item-input" id="postcategoryinput" onkeyup="document.getElementById('postcategory').innerText = document.getElementById('postcategoryinput').value;" placeholder="Post Category...">
+                        </div>
+                    </div>
+                    <div style="height: fit-content; display: flex; flex-direction: column; align-items: flex-start; align-content: flex-start; width: 80px; margin-left: 40px; overflow-x: hidden;">
+                        <button type="submit" style="border: none; background-color: transparent; font-family: 'Varela Round', sans-serif; padding: 0px; margin: 0px; cursor: pointer;" class="sidebar-link">Next ~</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/newpost.js"></script>
+</body>
+
+</html>
