@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://cozwix:cozwix@cluster0.ghbncey.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongo atlas link here')
 
 
 const postSchema = {
