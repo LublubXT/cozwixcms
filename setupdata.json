@@ -1,0 +1,80 @@
+{
+    "username": "admin",
+    "password": "admin",
+    "createPages": false,
+    "createPagesAmount": "all",
+    "pages": [{
+            "id": "homepage",
+            "fileName": "index",
+            "pageName": "Home",
+            "slug": "home",
+            "importPostData": [
+                "lastPostData",
+                "last3Posts"
+            ],
+            "data": [{
+                "id": "headerimage",
+                "type": "image",
+                "blogPostHeaderImage": true,
+                "data": "image.jpg"
+            }]
+        },
+        {
+            "id": "aboutpage",
+            "fileName": "about",
+            "pageName": "About",
+            "slug": "about",
+            "importPostData": [],
+            "data": [{
+                    "id": "headerimage",
+                    "type": "image",
+                    "data": "person.jpg"
+                },
+                {
+                    "id": "abouttitle",
+                    "type": "heading1",
+                    "data": "About Teddy"
+                },
+                {
+                    "id": "abouttext",
+                    "type": "paragraph",
+                    "data": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                }
+            ]
+        },
+        {
+            "id": "prayerletterpage",
+            "fileName": "prayerletters",
+            "pageName": "Prayer Letters",
+            "slug": "prayerletters",
+            "importPostData": [
+                "lastPostData",
+                "allPostData"
+            ],
+            "data": [{
+                "id": "headerimage",
+                "type": "image",
+                "blogPostHeaderImage": false,
+                "data": "image.jpg"
+            }]
+        },
+        {
+            "id": "contactpage",
+            "fileName": "contact",
+            "pageName": "Contact",
+            "slug": "contact",
+            "importPostData": [],
+            "data": [{
+                    "id": "contacttitle",
+                    "type": "heading1",
+                    "data": "Contact Me!"
+                },
+                {
+                    "id": "contacttext",
+                    "type": "paragraph",
+                    "data": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                }
+            ]
+        }
+    ]
+}

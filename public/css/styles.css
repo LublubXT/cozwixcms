@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Amatic+SC&family=Azeret+Mono&family=Bokor&family=Caesar+Dressing&family=Cinzel&family=Cinzel+Decorative&family=Courgette&family=Dancing+Script&family=Eagle+Lake&family=Edu+SA+Beginner&family=Fleur+De+Leah&family=Gideon+Roman&family=Indie+Flower&family=Josefin+Slab&family=Megrim&family=Nanum+Gothic+Coding&family=Nanum+Pen+Script&family=Nova+Cut&family=Permanent+Marker&family=Pirata+One&family=Press+Start+2P&family=Rhodium+Libre&family=Righteous&family=Rye&family=Share+Tech+Mono&family=Special+Elite&family=Syne+Mono&family=Tangerine&family=Tiro+Bangla&family=Ubuntu:wght@300&family=Varela+Round&family=Walter+Turncoat&family=Tienne&family=swap");
-:root {
-    --first: #323435;
-    --second: #F3F3F3;
-    --third: #e8e8e818;
-    --fourth: #5fb586;
-    --title: "Tienne", serif;
-    --text: "Varela Round", sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+ :root {
+    --first: #fff;
+    --second: #303030;
+    --third: #9AFF44;
+    --fourth: #f5f5f5;
+    --title: 'Alata', sans-serif;
+    --text: 'Alata', sans-serif;
 }
 
 body {
@@ -52,9 +52,14 @@ p {
     font-size: 17px;
 }
 
+a {
+    font-family: var(--text);
+    color: var(--second);
+}
+
 .caption {
     font-size: 15px;
-    color: var(--fourth);
+    color: #ccc;
     text-transform: uppercase;
     font-weight: 100;
 }
@@ -69,86 +74,78 @@ p {
     cursor: pointer;
 }
 
-.body {
+.header-area {
     display: flex;
     flex-direction: row;
-}
-
-.sidebar {
-    width: 152px;
-    height: 100vh;
-}
-
-.sidebar-logo {
-    display: block;
-    margin: auto;
-    margin-top: 62px;
-    margin-bottom: 62px;
-}
-
-.sidebar-link-container {
-    width: 100%;
-    height: calc(100vh - 220px);
-    display: flex;
-    flex-direction: column;
     justify-content: space-between;
+    width: calc(100% - 100px);
+    padding: 20px 50px;
     align-items: center;
     align-content: center;
 }
 
-.sidebar-link {
-    font-size: 17px;
-    color: var(--second);
-    text-decoration: none;
-    margin: 5px 0px;
-    width: 80px;
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-area {
+    width: calc(100% - 100px);
+    padding: 20px 50px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.link-button-top {
+    border: 1px solid black;
+    height: 100%;
+    padding: 12px 35px;
     position: relative;
-    right: 7px;
+    bottom: 5px;
+    right: 5px;
     transition: all 0.2s ease;
 }
 
-.sidebar-link:hover {
-    font-size: 17px;
-    color: var(--second);
-    text-decoration: none;
-    margin: 5px 0px;
+.link-button-top:hover {
+    cursor: pointer;
+    bottom: 0px;
     right: 0px;
-    opacity: 0.7;
-    // color: #32343512;
 }
 
-.sidebar-link-logout {
-    font-size: 17px;
-    color: var(--fourth);
-    text-decoration: none;
-    margin: 5px 0px;
-    width: 80px;
+.link-button-top-text {
+    margin: 0px;
     position: relative;
-    right: 7px;
+    top: 5px;
+    left: 5px;
     transition: all 0.2s ease;
 }
 
-.sidebar-link-logout:hover {
-    font-size: 17px;
-    color: var(--fourth);
-    text-decoration: none;
-    margin: 5px 0px;
-    right: 0px;
-    opacity: 0.7;
+.link-button-top:hover>.link-button-top-text {
+    margin: 0px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+.link-borderbottom {
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.link-borderbottom:hover {
+    border-bottom: 2px solid var(--third);
 }
 
 .mainarea {
-    width: calc(100vw - 152px);
-    height: 100vh;
+    width: calc(100vw);
+    height: calc(100vh - 93px);
     display: flex;
     flex-direction: row;
     align-items: center;
     align-content: center;
     justify-content: center;
-    background-image: url("../imgs/background-icon.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 30%;
 }
 
 .new-post-button {
@@ -172,7 +169,7 @@ p {
 
 .postlist-area {
     width: 100%;
-    height: calc(100% - 237px);
+    height: calc(100% - 0px);
     margin-top: 31px;
     display: flex;
     flex-direction: column;
@@ -192,71 +189,73 @@ p {
 }
 
 .postlist-item {
-    width: calc(100% - 2*27);
-    background-color: var(--third);
-    height: 40px;
+    width: calc(100% - 40px);
+    background-color: var(--fourth);
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     align-content: center;
     border-radius: 5px;
-    padding: 0px 27px;
+    padding: 0px 20px;
     // border: 1px solid transparent;
-    margin: 3px 0px;
+    margin: 11px 11px;
+    border-radius: 0px;
     transition: all 0.2s ease;
 }
 
-.postlist-item:hover {
-    opacity: 0.9;
-    // cursor: pointer;
-    // border: 1px solid var(--second);
-}
-
-.postlist-item p {
+.postlist-item-title {
+    width: 200px;
+    overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
     color: var(--second);
+    font-size: 20px;
+    font-family: var(--title);
 }
 
 .postlist-item-buttons {
-    width: 150px;
+    width: 210px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+    justify-self: flex-end;
     align-content: center;
 }
 
 .postlist-item-button-edit {
     border: none;
-    background-color: transparent;
+    background-color: white;
+    border-radius: 15px;
     font-size: 17px;
-    color: var(--fourth);
-    padding: 0px 7px;
+    color: var(--second);
+    padding: 0px 15px;
+    margin-right: 10px;
     font-family: var(--text);
     text-decoration: none;
     transition: all 0.2s ease;
 }
 
 .postlist-item-button-edit:hover {
-    color: var(--fourth);
     cursor: pointer;
+    opacity: 0.8;
 }
 
 .postlist-item-button-delete {
     border: none;
-    background-color: transparent;
     font-size: 17px;
-    color: #E48080;
-    padding: 0px 7px;
+    color: rgb(126, 126, 126);
+    padding: 0px 15px;
+    border-radius: 15px;
     text-decoration: none;
     font-family: var(--text);
+    margin-right: -15px;
     transition: all 0.2s ease;
 }
 
 .postlist-item-button-delete:hover {
-    color: #b86666;
     cursor: pointer;
+    opacity: 0.8;
 }
 
 .post-item {
@@ -305,25 +304,26 @@ p {
 
 .item-input {
     width: calc(100% - 40px);
-    border: none;
-    background-color: var(--first);
+    border: 0px solid black;
+    background-color: var(--fourth);
     font-size: 17px;
     padding: 10px 20px;
     outline: none;
     color: var(--second);
-    border-radius: 5px;
+    border-radius: 0px;
+    font-family: var(--text);
 }
 
 .align-button {
     background-color: var(--first);
     border: 50px;
-    border-radius: 50px;
+    border-radius: 0px;
     padding: 10px;
     transition: all 0.2s ease;
 }
 
 .align-button-start {
-    border-radius: 50px;
+    border-radius: 0px;
     background-color: var(--first);
     border: 50px;
     padding: 10px;
@@ -331,7 +331,7 @@ p {
 }
 
 .align-button-end {
-    border-radius: 50px;
+    border-radius: 0px;
     background-color: var(--first);
     border: 50px;
     padding: 10px;
@@ -363,4 +363,104 @@ p {
 
 .align-button-end img {
     width: 21px;
+}
+
+.additemdropdownbutton {
+    width: calc(90% - 10px);
+    background-color: var(--third);
+    color: var(--second);
+    border-radius: 0px;
+    padding: 1px;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    transition: all 0.3s ease;
+}
+
+.additemdropdownbutton p {
+    color: var(--second);
+}
+
+.additemdropdownbutton:hover {
+    cursor: pointer;
+    filter: drop-shadow(2px 2px 4px #D7FFB6);
+}
+
+.additemdropdown {
+    display: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.addBlock-item {
+    background-color: white;
+    border-radius: 0px;
+    border: 1px solid transparent;
+    padding: 5px 10px;
+    margin: 7px 0px;
+    width: 45%;
+    transition: all 0.3s ease;
+}
+
+.addBlock-item:hover {
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.loginareaborder {
+    width: auto;
+    max-width: 500px;
+    border: 1px solid var(--second);
+    height: auto;
+}
+
+.loginarea {
+    margin: 5px;
+    padding: 50px 30px;
+    width: calc(100% - 70px);
+    height: 100%;
+    background-color: var(--second);
+}
+
+.loginarea h1 {
+    color: var(--first);
+    margin: 0px auto;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.loginarea input {
+    width: calc(100% - 50px);
+    margin: 5px 20px;
+    padding: 5px;
+    border: none;
+    outline: none;
+    font-family: var(--text);
+    font-size: 17px;
+}
+
+.loginarea button {
+    width: calc(100% - 40px);
+    background-color: var(--third);
+    margin: 5px 20px;
+    padding: 5px;
+    border: none;
+    outline: none;
+    font-family: var(--text);
+    border: 2px solid transparent;
+    font-size: 17px;
+    transition: all 0.3s ease;
+}
+
+.loginarea button:hover {
+    cursor: pointer;
+    border: 2px solid var(--third);
+    color: var(--third);
+    background-color: transparent;
 }

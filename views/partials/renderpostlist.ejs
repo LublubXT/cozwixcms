@@ -1,0 +1,55 @@
+<script>
+    var showpostamount = 15
+    var postsShown = 15
+    var showMoreButton = document.getElementById('showMoreButton')
+
+    function showMorePosts() {
+        var postdata = '<%- allpostjson %>'
+        postdata = JSON.parse(postdata)
+        postdata.splice(0, postsShown)
+
+        if (postdata.length >= showpostamount) {
+            for (var e = 0; e < showpostamount; e++) {
+                document.getElementById('blogpostlistarea').innerHTML += `
+            <div class="post-item" onclick="window.location.href = '/post/${postdata[e].slug}'">
+                <img src='uploads/resized/${postdata[e].headerImage}' alt="" class="post-item-img">
+                    <div style="width: calc(100% - 20px); padding: 0px 10px 10px 10px;">
+                        <h1 class="postItemText" style="font-size: 25px; margin-bottom: -10px;">
+                            ${postdata[e].postTitle}
+                        </h1>
+                        <p class="postItemText" style="font-size: 15px; width: 99%;">
+                            ${postdata[e].underText}
+                        </p>
+                        <p class="caption" style="text-align: left;">
+                            ${postdata[e].author} |
+                            ${postdata[e].dateposted}
+                        </p>
+                    </div>
+            </div>`
+                postsShown += 1
+            }
+            showMoreButton.style.display = 'block'
+        } else if (postdata.length < showpostamount) {
+            for (var e = 0; e < postdata.length; e++) {
+                document.getElementById('blogpostlistarea').innerHTML += `
+            <div class="post-item" onclick="window.location.href = '/post/${postdata[e].slug}'">
+                <img src='uploads/resized/${postdata[e].headerImage}' alt="" class="post-item-img">
+                    <div style="width: calc(100% - 20px); padding: 0px 10px 10px 10px;">
+                        <h1 class="postItemText" style="font-size: 25px; margin-bottom: -10px;">
+                            ${postdata[e].postTitle}
+                        </h1>
+                        <p class="postItemText" style="font-size: 15px; width: 99%;">
+                            ${postdata[e].underText}
+                        </p>
+                        <p class="caption" style="text-align: left;">
+                            ${postdata[e].author} |
+                            ${postdata[e].dateposted}
+                        </p>
+                    </div>
+            </div>`
+                postsShown += 1
+            }
+            showMoreButton.style.display = 'none'
+        }
+    }
+</script>

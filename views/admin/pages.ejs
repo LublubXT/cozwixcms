@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Admin</title>
+</head>
+
+<body>
+    <div class="body">
+        <%- include('../partials/admin/navbar'); %>
+
+            <div class="main-area">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin:auto; max-width: 1400px; height: calc(100% - 122px);">
+                    <div class="postlist-area">
+                        <div class="postlist-item" style="background-color: transparent; margin-bottom: 0px;">
+
+                            <p style="width: 45%; min-width: 200px; overflow: hidden; text-overflow: ellipsis;" class="postlist-item-title">
+                                Page Name
+                            </p>
+
+
+
+
+                        </div>
+                        <% for (var i=0; i < data.length; i++) {%>
+                            <div class="postlist-item">
+
+                                <p style="width: 45%; min-width: 200px; overflow: hidden; text-overflow: ellipsis;" class="postlist-item-title">
+                                    <%= data[i].pageName %>
+                                </p>
+
+                                <div class="postlist-item-buttons">
+
+                                    <div style="background-color: #9AFF44; filter: drop-shadow(2px 2px 4px #D7FFB6);">
+                                        <div class="link-button-top" style="padding: 7px 35px;" onclick="window.location = '/admin/editpage/<%= data[i].id %>';">
+                                            <p class="link-button-top-text">Edit</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+    </div>
+</body>
+
+</html>

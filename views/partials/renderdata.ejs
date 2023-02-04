@@ -1,0 +1,60 @@
+<script>
+    var editor = document.getElementById('postarea')
+
+    var d = `<%- postjson %>`
+    d = JSON.parse(d)
+
+    console.log(d)
+
+    d = d.data
+
+    for (var i = 0; i < d.length; i++) {
+        addBlock1(d[i].type, d[i].data, d[i].caption, d[i].align, d[i].tab)
+    }
+
+    function addBlock1(item, data, caption, align, tab) {
+        if (item == 'heading1') {
+            editor.innerHTML += `
+      <h1 class="${align}" style="">${data}</h1>`
+
+        } else if (item == 'heading2') {
+            editor.innerHTML += `
+      <h2 class="${align}" style="">${data}</h2>`
+
+        } else if (item == 'heading3') {
+            editor.innerHTML += `
+      <h3 class="${align}" style="">${data}</h3>`
+
+        } else if (item == 'heading4') {
+            editor.innerHTML += `
+      <h4 class="${align}" style="">${data}</h4>`
+
+        } else if (item == 'paragraph') {
+            editor.innerHTML += `
+      <p class="${align} tab-${tab}">${data}</p>`
+
+        } else if (item == 'image') {
+
+            editor.innerHTML += `
+        <img src="uploads/resized/${data}" alt="" class="blog-img"></img>
+        <p class="caption" style="text-align: left; margin-bottom: 40px; margin-top: 5px;">${caption}</p>`
+
+
+        } else if (item == 'video') {
+            console.log("add video!!!")
+            editor.innerHTML += `
+                <video style="width: 100%; margin: auto; border-radius: 15px;" controls >
+                    <source src="uploads/${data}">
+                    Your browser does not support HTML video.
+                </video>`
+        } else if (item == 'audio') {
+            console.log("add audio!!!")
+            editor.innerHTML += `
+                <audio controls style="margin-bottom: 10px; display: block;">
+                                <source src="uploads/${data}">
+
+                                Your browser does not support the audio element.
+                            </audio>`
+        }
+    }
+</script>

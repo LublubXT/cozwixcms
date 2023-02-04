@@ -11,49 +11,48 @@
 
 <body>
     <div class="body">
-        <div class="sidebar">
-            <img src="imgs/ccms-logo.svg" alt="logo" class="sidebar-logo">
-            <div class="sidebar-link-container">
-                <div style="height: fit-content; display: flex; flex-direction: column; align-items: flex-start; align-content: flex-start; width: 80px; margin-left: 15px; overflow-x: hidden;">
-                    <a href="/admin/home" class="sidebar-link">- Home</a>
-                    <a href="/admin/posts" class="sidebar-link">- Posts</a>
-                    <a href="#" class="sidebar-link">- Pages</a>
-                    <a href="#" class="sidebar-link">- Website</a>
-                </div>
-                <div style="height: fit-content; display: flex; flex-direction: column; align-items: flex-start; align-content: flex-start; width: 80px; margin-left: 15px; overflow-x: hidden;">
-                    <a href="#" class="sidebar-link">- Setting</a>
-                    <a href="#" class="sidebar-link-logout">- Logout</a>
-                </div>
-            </div>
-        </div>
-        <div class="mainarea">
-            <div style="display: flex; flex-direction: column; align-items: center; width: 95%; margin:auto; max-width: 1000px; height: calc(100% - 122px);">
-                <div class="new-post-button" onclick="window.location = '/admin/newpostsetup';">
-                    <p style=" width: fit-content; font-size: 42px;">New Post
-                        <p /> <img src="imgs/plus.svg" alt="logo" style="margin-left: 27px;">
-                </div>
-                <div class="postlist-area">
-                    <div class="postlist-header">
-                        <p style="color: #323435; width: 50%; min-width: 200px;">Post Title</p>
-                        <p style="color: #323435; width: 50%; min-width: 200px;">Date Published</p>
-                    </div>
-                    <% for (var i=0; i < data.length; i++) {%>
-                        <div class="postlist-item">
-                            <p style=" width: 50%; min-width: 200px;">
-                                <%= data[i].postTitle %>
+        <%- include('../partials/admin/navbar'); %>
+
+            <div class="main-area" style="height: calc(100vh - 130px); overflow-y: auto;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin:auto; max-width: 1400px; height: calc(100% - 122px);">
+                    <div class="postlist-area" style="height: auto;">
+                        <div class="postlist-item" style="background-color: white; z-index: 1; margin-bottom: 0px; position: sticky; top: -20px; margin-top: 0px;">
+
+                            <p style="width: 45%; min-width: 200px; overflow: hidden; text-overflow: ellipsis;" class="postlist-item-title">
+                                Post Title
                             </p>
-                            <p style="color:#c1c3c4; width: calc(50% - 150px); min-width: 200px;">
-                                <%= data[i].dateposted %>
+
+                            <p style="width: 55%;">
+                                Date Posted
                             </p>
-                            <div class="postlist-item-buttons">
-                                <a href="/admin/edit/<%= data[i].slug %>" class="postlist-item-button-edit">Edit</a>
-                                <a ondblclick=" window.location = '/admin/delete/<%= data[i].slug %>'" class="postlist-item-button-delete">Delete</a>
-                            </div>
+
+
                         </div>
-                        <% } %>
+                        <% for (var i=0; i < data.length; i++) {%>
+                            <div class="postlist-item">
+
+                                <p style="width: 45%; min-width: 200px; overflow: hidden; text-overflow: ellipsis;" class="postlist-item-title">
+                                    <%= data[i].postTitle %>
+                                </p>
+
+                                <p style="color:#c1c3c4; width: 40%;">
+                                    <%= data[i].dateposted %>
+                                </p>
+
+                                <div class="postlist-item-buttons">
+
+                                    <a ondblclick=" window.location = '/admin/delete/<%= data[i].slug %>'" class="postlist-item-button-delete" style="margin-right: 10px;">Delete</a>
+                                    <div style="background-color: #9AFF44; filter: drop-shadow(2px 2px 4px #D7FFB6);">
+                                        <div class="link-button-top" style="padding: 7px 35px;" onclick="window.location = '/admin/edit/<%= data[i].slug %>';">
+                                            <p class="link-button-top-text">Edit</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
 </body>
 

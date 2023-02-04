@@ -17,6 +17,8 @@ const variable = require("../variables")
 const edit = require("./editpost")
 router.use("/edit", edit)
 
+const editpage = require("./editpage")
+router.use("/editpage", editpage)
 
 const del = require("./deletepost")
 router.use("/delete", del)
@@ -50,60 +52,137 @@ const path = require("path");
 
 const checkFileType = function(file, cb) {
     //Allowed file extensions
-    const fileTypes = /jpeg|jpg|png|gif|svg/;
+    const fileTypes = /jpeg|jpg|png|gif|mp4|ogg|webm|mp3|wav/;
 
     //check extension names
-    const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
+    const extName = path.extname(file.originalname).toLowerCase()
 
-    const mimeType = fileTypes.test(file.mimetype);
+    const mimeType = file.mimetype
 
     if (mimeType && extName) {
         return cb(null, true);
     } else {
-        cb("Error: You can Only Upload Images!!");
+        cb("Error: Not right file type!!");
     }
 };
 
 router
     .get("/", (req, res) => {
+        res.render('admin/login');
+        // if (variable.permittedIn == true) {
+        //     res.redirect('/admin/home');
+        // } else if (variable.permittedIn == false) {
+        //     res.redirect('/')
+        // }
 
-        res.redirect('/admin/home');
+    })
+
+router
+    .post("/login", (req, res) => {
+        var username = req.body.username
+        var password = req.body.password
+
+        fs.readFile('./setupdata.json', 'utf8', (error, data) => {
+            if (error) {
+                console.log(error);
+                return;
+            }
+            data = JSON.parse(data)
+                // console.log(data)
+            var user = data.username
+            var pass = data.password
+
+            // console.log("username: ", username, user)
+            // console.log("password: ", password, pass)
+
+            if (username === user && password === pass) {
+                // console.log("Your in!")
+                variable.permittedIn = true
+                res.redirect('/admin/home')
+            } else if (username !== user && password !== pass) {
+                // console.log("You can't come in!")
+                res.redirect("/")
+            }
+        })
 
     })
 
 router
     .get("/home", (req, res) => {
-
-        res.render('admin/home');
-
+        if (variable.permittedIn == true) {
+            res.render('admin/home');
+        } else if (variable.permittedIn == false) {
+            res.redirect('/')
+        }
     })
 
 router
     .get("/posts", (req, res) => {
+        if (variable.permittedIn == true) {
 
-        variable.Post.find({}, function(err, p) {
-            if (err) {
-                console.log(err)
-            } else {
+            variable.Post.find({}, function(err, p) {
+                if (err) {
+                    console.log(err)
+                } else {
 
-                res.render('admin/posts', { data: p, json: JSON.stringify(p) });
-            }
-        })
+                    res.render('admin/posts', { data: p, json: JSON.stringify(p.reverse()) });
+                }
+            })
+        } else if (variable.permittedIn == false) {
+            res.redirect('/')
+        }
+
+
+    })
+
+router
+    .get("/pages", (req, res) => {
+        if (variable.permittedIn == true) {
+            variable.Page.find({}, function(err, p) {
+                if (err) {
+                    console.log(err)
+                } else {
+
+                    res.render('admin/pages', { data: p, json: JSON.stringify(p) });
+                }
+            })
+        } else if (variable.permittedIn == false) {
+            res.redirect('/')
+        }
 
 
     })
 
 router
     .get("/newpostsetup", (req, res) => {
-
-        res.render('admin/newpostsetup');
-
+        if (variable.permittedIn == true) {
+            res.render('admin/newpostsetup');
+        } else if (variable.permittedIn == false) {
+            res.redirect('/')
+        }
     })
 
 router
     .get("/newpost", (req, res) => {
+        if (variable.permittedIn == true) {
+            res.render('admin/newpost', { "data": JSON.stringify(variable.dataStorage) });
+        } else if (variable.permittedIn == false) {
+            res.redirect('/')
+        }
+    })
 
-        res.render('admin/newpost', { "data": JSON.stringify(variable.dataStorage) });
+router
+    .post("/uploadaudio", upload.single("audio"), async(req, res) => {
+        if (req.file) {
+            const { filename: audio } = req.file;
+
+            // console.log("this data isn't working", audio)
+
+            variable.dataStorage = JSON.parse(req.body.data)
+            res.redirect(`/admin/newpost`)
+        } else {
+            res.status(400).send("Please upload a valid audio");
+        }
 
     })
 
@@ -128,6 +207,52 @@ router
             res.redirect('/admin/newpost')
         } else {
             res.status(400).send("Please upload a valid image");
+        }
+
+    })
+
+router
+    .post("/uploadvideo", upload.single("video"), async(req, res) => {
+
+        if (req.file) {
+            const { filename: video } = req.file;
+
+            // console.log("this data isn't working", req.body.data)
+
+            variable.dataStorage = JSON.parse(req.body.data)
+            res.redirect('/admin/newpost')
+        } else {
+            res.status(400).send("Please upload a valid video");
+        }
+
+    })
+
+router
+    .post("/uploadvideoedit", upload.single("video"), async(req, res) => {
+        if (req.file) {
+            const { filename: video } = req.file;
+
+            // console.log("this data isn't working", req.body.data)
+
+            variable.editdataStorage = JSON.parse(req.body.data)
+            res.redirect(`/admin/edit/${variable.editdataStorage.slug}`)
+        } else {
+            res.status(400).send("Please upload a valid video");
+        }
+
+    })
+
+router
+    .post("/uploadaudioedit", upload.single("audio"), async(req, res) => {
+        if (req.file) {
+            const { filename: audio } = req.file;
+
+            // console.log("this data isn't working", audio)
+
+            variable.editdataStorage = JSON.parse(req.body.data)
+            res.redirect(`/admin/edit/${variable.editdataStorage.slug}`)
+        } else {
+            res.status(400).send("Please upload a valid audio");
         }
 
     })
@@ -199,11 +324,11 @@ router
         variable.editdataStorage = JSON.parse(req.body.data)
 
 
-        variable.Post.findOne({ slug: variable.editdataStorage.slug }, function(err, p) {
+        variable.Post.findOne({ id: variable.editdataStorage.id }, function(err, p) {
             if (err) {
                 console.log(err)
             } else {
-                console.log(p)
+                // console.log(variable.editdataStorage, p)
 
                 p.slug = variable.editdataStorage.slug
                 p.author = variable.editdataStorage.author
@@ -263,7 +388,7 @@ router
 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 function generateString(length) {
-    let result = ' ';
+    let result = '';
     const charactersLength = characters.length;
     for (let i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));

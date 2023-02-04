@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Admin</title>
+</head>
+
+<body>
+    <div class="body">
+        <div class="header-area">
+            <div style="display: flex; flex-direction: row; align-items: center; align-content: center;">
+
+                <div style="border-bottom: 2px solid #9AFF44; width: fit-content;">
+                    <a href="/admin/home" style="font-size: 20px; text-decoration: none;">.cms</a>
+                </div>
+                <p style="padding-left: 10px;"></p>
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
+                <div class="link-borderbottom" style="width: fit-content; margin: 0px 15px;">
+                    <a href="/admin/posts" class="link-borderbottom-link" style="font-size: 20px; text-decoration: none;">.posts</a>
+                </div>
+                <div class="link-borderbottom" style="width: fit-content; margin: 0px 15px;">
+                    <a href="/admin/pages" class="link-borderbottom-link" style="font-size: 20px; text-decoration: none;">.pages</a>
+                </div>
+                <div class="link-borderbottom" style="width: fit-content; margin: 0px 15px;">
+                    <a href="/admin/home" class="link-borderbottom-link" style="font-size: 20px; text-decoration: none;">.website</a>
+                </div>
+            </div>
+            <div style="background-color: #9AFF44; filter: drop-shadow(2px 2px 4px #D7FFB6);">
+                <div class="link-button-top" onclick="document.getElementById('saveform').submit()">
+                    <p class="link-button-top-text">Save Post</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mainarea" style="align-items: flex-start; align-content: flex-start;overflow-y: auto;">
+            <div style="width: 900px; height: auto; padding: 20px 50px;">
+                <div id="editor" style="min-height: 90vh;">
+
+                </div>
+
+            </div>
+        </div>
+
+        <form action="/admin/editpage/save" id="saveform" method="POST">
+            <input type="text" name="data" id="datainput" style="display: none;">
+            <div style="height: fit-content; display: flex; flex-direction: column; align-items: flex-start; align-content: flex-start; width: 80px; margin-left: 40px; overflow-x: hidden;">
+            </div>
+        </form>
+    </div>
+    <script>
+        var d = '<%- data %>'
+
+
+        d = JSON.parse(d)
+
+        var editor = document.getElementById('editor')
+        var dataInput = document.getElementById('datainput')
+        var dataInputs = document.getElementsByClassName('datainput')
+
+
+        dd = d.data
+        dataInput.value = JSON.stringify(dd)
+        for (var i = 0; i < dataInputs.length; i++) {
+            dataInputs[i].value = JSON.stringify(dd)
+        }
+
+
+        var showItem = false
+        var toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+            ['blockquote'],
+
+
+            [{
+                'list': 'ordered'
+            }, {
+                'list': 'bullet'
+            }],
+            [{
+                'script': 'sub'
+            }, {
+                'script': 'super'
+            }], // superscript/subscript
+            [{
+                'indent': '-1'
+            }, {
+                'indent': '+1'
+            }], // outdent/indent
+            [{
+                'direction': 'rtl'
+            }], // text direction
+
+
+            [{
+                'header': [1, 2, 3, 4, 5, 6, false]
+            }],
+
+
+            [{
+                'align': []
+            }],
+
+            ['clean'] // remove formatting button
+
+        ];
+
+        function addDataRich(id) {
+            for (var i = 0; i < dd.length; i++) {
+                if (dd[i].id == id) {
+                    dd[i].data = document.getElementById(`${id}`).getElementsByClassName('ql-editor')[0].innerHTML
+                }
+            }
+            d.data = dd
+            dataInput.value = JSON.stringify(d.data)
+            for (var i = 0; i < dataInputs.length; i++) {
+                dataInputs[i].value = JSON.stringify(d)
+            }
+        }
+
+        for (var i = 0; i < dd.length; i++) {
+            if (dd[i].align == '') {
+                dd[i].align = 'left';
+            }
+            if (dd[i].tab == '') {
+                dd[i].tab = 'none';
+            }
+            addBlock1(dd[i].type, dd[i].id, dd[i].data, dd[i].align, dd[i].tab, dd[i].caption, dd[i].blogPostHeaderImage)
+        }
+
+        function addBlock1(item, elid, data, align, tab, caption, BPHI) {
+            if (item == 'heading1') {
+                editor.innerHTML += `
+          <div style="width: 90%; margin: 20px auto;">
+                  
+    
+              <p class="caption" style="margin-bottom: 4px;">${elid}</p>
+              <div style="width: calc(100% - 80px); margin: auto; border: 1px solid black; background-color: white; color: #323435; border-radius: 0px; padding: 40px;">
+                <h1 style="text-align: ${align};" id="${elid}">${data}</h1>
+                  <input type="text" class="item-input" id="${elid}input" value="${data}" onkeyup="document.getElementById('${elid}').innerText = document.getElementById('${elid}input').value; addData('${elid}');" placeholder="Heading Text...">
+                  
+              </div>
+          </div>`
+
+            } else if (item == 'heading2') {
+                editor.innerHTML += `
+          <div style="width: 90%; margin: 20px auto;">
+    
+              <p class="caption" style="margin-bottom: 4px;">${elid}</p>
+              <div style="width: calc(100% - 80px); margin: auto; border: 1px solid black; background-color: white; color: #323435; border-radius: 0px; padding: 40px;">
+                <h2 style="text-align: ${align};" id="${elid}">${data}</h2>
+                  <input type="text" class="item-input" id="${elid}input" value="${data}" onkeyup="document.getElementById('${elid}').innerText = document.getElementById('${elid}input').value; addData('${elid}');" placeholder="Heading Text...">
+                  
+              </div>
+          </div>`
+
+            } else if (item == 'heading3') {
+                editor.innerHTML += `
+          <div style="width: 90%; margin: 20px auto;">
+    
+              <p class="caption" style="margin-bottom: 4px;">${elid}</p>
+              <div style="width: calc(100% - 80px); margin: auto; border: 1px solid black; background-color: white; color: #323435; border-radius: 0px; padding: 40px;">
+                <h3 style="text-align: ${align};" id="${elid}">${data}</h3>
+                  <input type="text" class="item-input" id="${elid}input" value="${data}" onkeyup="document.getElementById('${elid}').innerText = document.getElementById('${elid}input').value; addData('${elid}');" placeholder="Heading Text...">
+                 
+              </div>
+          </div>`
+
+            } else if (item == 'heading4') {
+                editor.innerHTML += `
+          <div style="width: 90%; margin: 20px auto;">
+    
+              <p class="caption" style="margin-bottom: 4px;">${elid}</p>
+              <div style="width: calc(100% - 80px); margin: auto; border: 1px solid black; background-color: white; color: #323435; border-radius: 0px; padding: 40px;">
+                <h4  style="text-align: ${align};"id="${elid}">${data}</h4>
+                  <input type="text" class="item-input" id="${elid}input" value="${data}" onkeyup="document.getElementById('${elid}').innerText = document.getElementById('${elid}input').value; addData('${elid}');" placeholder="Heading Text...">
+                 
+              </div>
+          </div>`
+
+            } else if (item == 'paragraph') {
+                var t = 0
+                if (tab == '1') {
+                    t = 30
+                } else if (tab == '2') {
+                    t = 60
+                }
+                editor.innerHTML += `
+          <div style="width: 90%; margin: 20px auto;">
+    
+              <p class="caption" style="margin-bottom: 4px;">${elid}</p>
+              <div style="width: calc(100% - 80px); margin: auto; border: 1px solid black; background-color: white; color: #323435; border-radius: 0px; padding: 40px;">
+                
+                <p style="text-align: ${align}; text-indent: ${t}px;" id="${elid}">${data}</p>
+                  <input type="text" class="item-input" id="${elid}input" value="${data}" onkeyup="document.getElementById('${elid}').innerText = document.getElementById('${elid}input').value; addData('${elid}');" placeholder="Paragraph Text...">
+                  
+                    
+              </div>
+          </div>`
+
+            } else if (item == 'image') {
+
+                datainputs += 1
+                if (BPHI == true) {
+                    editor.innerHTML += `
+            <form action="/admin/editpage/uploadimg" method="POST" enctype="multipart/form-data">
+            <input type="text" name="data" class="datainput" style="display: none;">
+                <div style="width: 90%; display: block; margin: 20px auto;">
+                  <p class="caption" style="margin-bottom: 4px;">${elid}</p>
+                    <div style="width: calc(100% - 80px); margin: auto; border: 1px solid black; background-color: white; color: #323435; border-radius: 0px; padding: 40px;">
+                        <img id="${elid}" src="uploads/resized/${data}" alt="your image" style="width: 50%; margin: auto; display: block; margin-bottom: 30px;" />
+                        <input type="file" id="${elid}input" onchange="uploadImage('${elid}')" name="image" />
+                        <button type="submit">Upload</button>
+                        <div style="margin-top: 15px;">
+                            <input type="checkbox" id="blogPostHeaderImage${elid}" onclick="toggleBlogPostHeaderImage('${elid}')" checked/>
+                            <label for="blogPostHeaderImage">Use blog post's header image for this image</label>
+                        </div>
+                    </div>
+                </div>
+            </form>`
+                } else if (BPHI == false) {
+                    editor.innerHTML += `
+            <form action="/admin/editpage/uploadimg" method="POST" enctype="multipart/form-data">
+            <input type="text" name="data" class="datainput" style="display: none;">
+                <div style="width: 90%; display: block; margin: 20px auto;">
+                  <p class="caption" style="margin-bottom: 4px;">${elid}</p>
+                    <div style="width: calc(100% - 80px); margin: auto; border: 1px solid black; background-color: white; color: #323435; border-radius: 0px; padding: 40px;">
+                        <img id="${elid}" src="uploads/resized/${data}" alt="your image" style="width: 50%; margin: auto; display: block; margin-bottom: 30px;" />
+                        <input type="file" id="${elid}input" onchange="uploadImage('${elid}')" name="image" />
+                        <button type="submit">Upload</button>
+                        <div style="margin-top: 15px;">
+                            <input type="checkbox" id="blogPostHeaderImage${elid}" onclick="toggleBlogPostHeaderImage('${elid}')"/>
+                            <label for="blogPostHeaderImage">Use blog post's header image for this image</label>
+                        </div>
+                    </div>
+                </div>
+            </form>`
+                } else {
+                    editor.innerHTML += `
+            <form action="/admin/editpage/uploadimg" method="POST" enctype="multipart/form-data">
+            <input type="text" name="data" class="datainput" style="display: none;">
+                <div style="width: 90%; display: block; margin: 20px auto;">
+                  <p class="caption" style="margin-bottom: 4px;">${elid}</p>
+                    <div style="width: calc(100% - 80px); margin: auto; border: 1px solid black; background-color: white; color: #323435; border-radius: 0px; padding: 40px;">
+                        <img id="${elid}" src="uploads/resized/${data}" alt="your image" style="width: 50%; margin: auto; display: block; margin-bottom: 30px;" />
+                        <input type="file" id="${elid}input" onchange="uploadImage('${elid}')" name="image" />
+                        <button type="submit">Upload</button>
+                       
+                    </div>
+                </div>
+            </form>`
+                }
+
+                forms += 1
+
+            } else if (item == 'video') {
+                datainputs += 1
+                editor.innerHTML += `
+            <form action="/admin/uploadvideoedit" method="POST" enctype="multipart/form-data">
+                <input type="text" name="data" class="datainput" style="display: none;">
+                <div style="width: 90%; display: block; margin: 20px auto;">
+                    <p class="caption" style="margin-bottom: 4px;">${elid}</p>
+                    <div style="width: calc(100% - 80px); margin: auto; border: 1px solid black; background-color: white; color: #323435; border-radius: 0px; padding: 40px;">
+                        <video style="width: 100%; margin-bottom: 20px; border-radius: 15px;" controls>
+                            <source id="${elid}imagesource" src="uploads/${data}">
+                            Your browser does not support HTML video.
+                        </video>
+                        <input type="file" id="${elid}input" name="video" onchange="readVideo('${elid}')"  type="video/*" />
+                        <button type="submit">Upload</button>
+                    </div>
+                </div>
+            </form>`
+                forms += 1
+
+            } else if (item == 'richtext') {
+
+
+                editor.innerHTML += `
+           <div style="width: 90%; margin: 20px auto; margin-top: 30px;">
+                <div id="${elid}" onkeyup="addDataRich('${elid}')">
+                    ${data}
+                </div>
+            </div>`
+
+                var quill = new Quill(`#${elid}`, {
+                    modules: {
+                        toolbar: toolbarOptions
+                    },
+                    theme: 'snow'
+                });
+
+            }
+        }
+
+        var forms = 0
+        var datainputs = 0
+
+
+        function addData(id) {
+            for (var i = 0; i < dd.length; i++) {
+                if (dd[i].id == id) {
+                    dd[i].data = document.getElementById(`${id}input`).value
+                }
+            }
+            d.data = dd
+            dataInput.value = JSON.stringify(d.data)
+            for (var i = 0; i < dataInputs.length; i++) {
+                dataInputs[i].value = JSON.stringify(d)
+            }
+        }
+
+        function toggleBlogPostHeaderImage(id) {
+            var checkbox = document.getElementById(`blogPostHeaderImage${id}`)
+            if (checkbox.checked == true) {
+                for (var i = 0; i < d.data.length; i++) {
+                    if (d.data[i].id == id) {
+
+                        d.data[i].blogPostHeaderImage = true
+                        dataInput.value = JSON.stringify(d.data)
+                        for (var i = 0; i < dataInputs.length; i++) {
+                            dataInputs[i].value = JSON.stringify(d)
+                        }
+                    }
+
+                }
+            } else if (checkbox.checked == false) {
+                for (var i = 0; i < d.data.length; i++) {
+                    if (d.data[i].id == id) {
+                        d.data[i].blogPostHeaderImage = false
+                        dataInput.value = JSON.stringify(d.data)
+                        for (var i = 0; i < dataInputs.length; i++) {
+                            dataInputs[i].value = JSON.stringify(d)
+                        }
+                    }
+
+                }
+            }
+        }
+
+        function deleteItem(id) {
+            for (var i = 0; i < dd.length; i++) {
+                if (dd[i].id == id) {
+                    dd.splice(i, 1)
+                    editor.innerHTML = ''
+                    for (var i = 0; i < dd.length; i++) {
+                        if (dd[i].align == '') {
+                            dd[i].align = 'left';
+                        }
+                        if (dd[i].tab == '') {
+                            dd[i].tab = 'none';
+                        }
+                        addBlock1(dd[i].type, dd[i].id, dd[i].data, dd[i].align, dd[i].tab, dd[i].caption)
+                    }
+                    d.data = dd
+                    dataInput.value = JSON.stringify(d.data)
+                    for (var i = 0; i < dataInputs.length; i++) {
+                        dataInputs[i].value = JSON.stringify(d)
+                    }
+                }
+            }
+        }
+
+        function addDataCaption(id) {
+            for (var i = 0; i < dd.length; i++) {
+                if (dd[i].id == id) {
+                    dd[i].caption = document.getElementById(`${id}inputcap`).value
+                }
+            }
+            d.data = dd
+            dataInput.value = JSON.stringify(d.data)
+            for (var i = 0; i < dataInputs.length; i++) {
+                dataInputs[i].value = JSON.stringify(d)
+            }
+        }
+
+        function align(align, id) {
+            document.getElementById(id).style.textAlign = align
+            for (var i = 0; i < dd.length; i++) {
+                if (dd[i].id == id) {
+                    dd[i].align = align
+                    d.data = dd
+                    dataInput.value = JSON.stringify(d.data)
+                    for (var i = 0; i < dataInputs.length; i++) {
+                        dataInputs[i].value = JSON.stringify(d)
+                    }
+                }
+            }
+        }
+
+        function tab(tab, id) {
+            if (tab == 'none') {
+                document.getElementById(id).style.textIndent = '0px'
+            } else if (tab == '1') {
+                document.getElementById(id).style.textIndent = '30px'
+            } else if (tab == '2') {
+                document.getElementById(id).style.textIndent = '60px'
+            }
+            for (var i = 0; i < dd.length; i++) {
+                if (dd[i].id == id) {
+                    dd[i].tab = tab
+                    d.data = dd
+                    dataInput.value = JSON.stringify(d.data)
+                    for (var i = 0; i < dataInputs.length; i++) {
+                        dataInputs[i].value = JSON.stringify(d)
+                    }
+                }
+            }
+        }
+
+        function uploadImage(id) {
+            const [file] = document.getElementById(`${id}input`).files
+            if (file) {
+                document.getElementById(`${id}`).src = URL.createObjectURL(file)
+            }
+            for (var i = 0; i < dd.length; i++) {
+                if (dd[i].id == id) {
+                    dd[i].data = document.getElementById(`${id}input`).files[0].name
+                }
+            }
+            d.data = dd
+
+            dataInput.value = JSON.stringify(d.data)
+            for (var i = 0; i < dataInputs.length; i++) {
+                dataInputs[i].value = JSON.stringify(d)
+            }
+
+        }
+
+        function headerImage(id) {
+            const [file] = document.getElementById(`${id}input`).files
+            if (file) {
+                document.getElementById(`${id}`).src = URL.createObjectURL(file)
+            }
+
+        }
+
+        var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+
+        function generateString(length) {
+            let result = ''
+            const charactersLength = characters.length
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength))
+            }
+
+            return result;
+        }
+    </script>
+</body>
+
+</html>

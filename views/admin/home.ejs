@@ -11,27 +11,11 @@
 
 <body>
     <div class="body">
-        <div class="sidebar">
-            <img src="imgs/ccms-logo.svg" alt="logo" class="sidebar-logo">
-            <div class="sidebar-link-container">
-                <div style="height: fit-content; display: flex; flex-direction: column; align-items: flex-start; align-content: flex-start; width: 80px; margin-left: 15px; overflow-x: hidden;">
-                    <a href="/admin/home" class="sidebar-link">- Home</a>
-                    <a href="/admin/posts" class="sidebar-link">- Posts</a>
-                    <a href="#" class="sidebar-link">- Pages</a>
-                    <a href="#" class="sidebar-link">- Website</a>
-                </div>
-                <div style="height: fit-content; display: flex; flex-direction: column; align-items: flex-start; align-content: flex-start; width: 80px; margin-left: 15px; overflow-x: hidden;">
-                    <a href="#" class="sidebar-link">- Setting</a>
-                    <a href="#" class="sidebar-link-logout">- Logout</a>
-                </div>
+        <%- include('../partials/admin/navbar'); %>
+            <div class="main-area" style="height: calc(100vh - 100px); display: flex; flex-direction: row; justify-content: center; align-items: center; align-content: center;">
+                <img src="imgs/cozwixlogo.svg" alt="">
+
             </div>
-        </div>
-        <div class="mainarea">
-            <div style="display: flex; flex-direction: column; align-items: center;">
-                <h1 style="margin-bottom: 0px;">Welcome Aboard!</h1>
-                <p>Cozwix CMS is a cms build for speed and simplicity.</p>
-            </div>
-        </div>
     </div>
 </body>
 

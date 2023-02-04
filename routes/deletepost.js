@@ -16,9 +16,9 @@ router
 
         // this will give you the product slug
         const pslug = req.params.postSlug;
-        console.log(pslug)
+        // console.log(pslug)
         await variable.Post.deleteOne({ slug: `${pslug}` })
-        res.redirect('admin/posts');
+        res.redirect('/admin/home');
 
     })
 

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/webstyles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Title</title>
+</head>
+
+<body>
+    <%- include('./partials/navbar'); %>
+        <% if (pagedata[0].blogPostHeaderImage==true) { %>
+            <img src="uploads/resized/<%= postdata.headerImage %>" alt="" class="header-img edit">
+            <% } else if (pagedata[0].blogPostHeaderImage==false) { %>
+                <img src="uploads/resized/<%= pagedata[0].data %>" alt="" class="header-img edit">
+                <% } %>
+                    <div class="container">
+                        <div class="bottom-post-list" id="blogpostlistarea" style="margin-top: 40px;">
+                            <% if (allpostdata.length> 15) { %>
+                                <% for (var e=0; e < 15; e++) {%>
+                                    <div id="post<%= e %> " class="post-item" onclick="window.location.href = '/post/<%=allpostdata[e].slug%>'">
+                                        <img src='uploads/resized/<%=allpostdata[e].headerImage%>' alt="" class="post-item-img">
+                                        <div style="width: calc(100% - 20px); padding: 0px 10px 10px 10px;">
+                                            <h1 class="postItemText" style="font-size: 25px; margin-bottom: -10px;">
+                                                <%=allpostdata[e].postTitle%>
+                                            </h1>
+                                            <p class="postItemText" style="font-size: 15px; width: 99%;">
+                                                <%=allpostdata[e].underText%>
+                                            </p>
+                                            <p class="caption" style="text-align: left;">
+                                                <%=allpostdata[e].author%> |
+                                                    <%=allpostdata[e].dateposted%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <% } %>
+
+                                        <% } else if (allpostdata.length<=15) { %>
+                                            <% for (var e=0; e < allpostdata.length; e++) {%>
+                                                <div class="post-item" onclick="window.location.href = '/post/<%=allpostdata[e].slug%>'">
+                                                    <img src='uploads/resized/<%=allpostdata[e].headerImage%>' alt="" class="post-item-img">
+                                                    <div style="width: calc(100% - 20px); padding: 0px 10px 10px 10px;">
+                                                        <h1 class="postItemText" style="font-size: 25px; margin-bottom: -10px;">
+                                                            <%=allpostdata[e].postTitle%>
+                                                        </h1>
+                                                        <p class="postItemText" style="font-size: 15px; width: 99%;">
+                                                            <%=allpostdata[e].underText%>
+                                                        </p>
+                                                        <p class="caption" style="text-align: left;">
+                                                            <%=allpostdata[e].author%> |
+                                                                <%=allpostdata[e].dateposted%>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <% } %>
+
+                                                    <% } %>
+                        </div>
+                        <div style="display: flex; flex-direction:column; margin: auto; margin-top: 30px; width: fit-content; cursor: pointer;" id="showMoreButton">
+                            <a class="navbar-link" onclick="showMorePosts()">Show More</a>
+                            <div class="navlink-bar"></div>
+                        </div>
+                        <%- include('./partials/footer'); %>
+                    </div>
+                    <%- include('./partials/renderpostlist'); %>
+                        <script>
+                            function onMenuClick() {
+                                var navbar = document.getElementById('drop');
+                                var responsive_class_name = 'responsive'
+                                navbar.classList.toggle(responsive_class_name)
+                            }
+                        </script>
+
+</body>
+
+</html>

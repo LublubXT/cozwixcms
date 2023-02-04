@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/webstyles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Title</title>
+</head>
+
+<body>
+    <%- include('./partials/navbar'); %>
+        <div class="container">
+            <div id="postarea">
+                <img src="uploads/resized/<%= pagedata[0].data %>" alt="" class="header-img edit">
+
+                <h1 class="" style="text-align: center; margin-bottom: -10px; margin-top: 40px;">
+                    <%= pagedata[1].data %>
+                </h1>
+                <p style="text-align: justify; text-indent: 40px; margin-bottom: 45px;">
+                    <%= pagedata[2].data %>
+                </p>
+            </div>
+
+            <%- include('./partials/footer'); %>
+        </div>
+
+        <script>
+            function onMenuClick() {
+                var navbar = document.getElementById('drop');
+                var responsive_class_name = 'responsive'
+                navbar.classList.toggle(responsive_class_name)
+            }
+        </script>
+</body>
+
+</html>
