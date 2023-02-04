@@ -15,7 +15,7 @@ To delete a post, simply double-click the delete button. To edit a post, click t
 
 ![posts](https://user-images.githubusercontent.com/73581388/216763053-a24e8d1c-67ce-45e5-9d20-41ba860483c3.png)
 
-### Create new Posts
+### Create and Edit Posts
 ![createpost](https://user-images.githubusercontent.com/73581388/216763124-cd75759c-a66c-4cd7-b285-7ebdabb8562d.png)
 
 ### Basic Components
