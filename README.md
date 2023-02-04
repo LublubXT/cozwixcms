@@ -48,7 +48,7 @@ Component List:
 6. Upload your post header image, and fill in everything else, then click `Next`.
 7. To add an item, click the green `Add Item` button, and click which item you want to add. 
 8. Once you have finnished adding all the items to your post, click the green `Save` button in the top right corner. Now you have made your first post!
-9. To go to the home page go `http://localhost:3001/`, and you should see the post you made! All the other links in the navbar should work.
+9. To go to the home page, go `http://localhost:3001/`, and you should see the post you made! All the other links in the navbar should work.
 
 # Coming soon
 - [ ] [Coming Next] How to build your own template for the cms.
